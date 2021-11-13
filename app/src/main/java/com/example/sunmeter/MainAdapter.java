@@ -3,6 +3,7 @@ package com.example.sunmeter;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -33,14 +36,15 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
         return new MyViewHolder(v);
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         User  user = rankList.get(position);
-        holder.firstName.setText(String.valueOf(user.getFirstName()));
-        holder.age.setText(String.valueOf(user.getAge()));
-       holder.profile.setImageResource(R.drawable.ic_launcher_background);
-
+        holder.setFirstName(String.valueOf(user.getFirstName()));
+        holder.setAge(String.valueOf(user.getAge()));
+      //  Log.i("2",user.getLastName());
+        holder.setImage(String.valueOf(user.getLastName()));
 
     }
 
@@ -51,15 +55,30 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
 
     public static  class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView firstName, lastName , age;
-        ImageView profile;
+        View mView;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            firstName = itemView.findViewById(R.id.tvfirstName);
-           // lastName = itemView.findViewById(R.id.tvlastName);
-            age = itemView.findViewById(R.id.tvAge);
-            profile = itemView.findViewById(R.id.profile);
+            mView = itemView;
+        }
+        public void setFirstName(String firstName){
+            TextView textview = (TextView) mView.findViewById(R.id.tvfirstName);
+            textview.setText(firstName);
+        }
+        public void setAge(String age){
+            TextView textview = (TextView) mView.findViewById(R.id.tvAge);
+            textview.setText(age);
+        }
+        public void setImage( String img){
+            ImageView imageView = (ImageView)mView.findViewById(R.id.tvimage);
+            Log.i("1",img);
+
+            Picasso.get().load(img).resize(200,200).noFade().into(imageView);
+
+
+        }
+
+
         }
     }
-}
+

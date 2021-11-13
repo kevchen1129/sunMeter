@@ -30,7 +30,7 @@ public class ranklist extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.ranklist);
         database = FirebaseDatabase.getInstance().getReference("Users");
-        recyclerView.setHasFixedSize(true);
+        //recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         list = new ArrayList<>();
         mainAdapter = new MainAdapter(this,list);

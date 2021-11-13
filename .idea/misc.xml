@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/kevch/AndroidStudioProjects/sunMeter/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.11851851851851852" />
+        <entry key="..\:/Users/kevch/AndroidStudioProjects/sunMeter/app/src/main/res/drawable/circle_progress_bar.xml" value="0.24479166666666666" />
+        <entry key="..\:/Users/kevch/AndroidStudioProjects/sunMeter/app/src/main/res/drawable/circle_shape.xml" value="0.24479166666666666" />
         <entry key="..\:/Users/kevch/AndroidStudioProjects/sunMeter/app/src/main/res/drawable/emtpy_divider.xml" value="0.23794871794871794" />
         <entry key="..\:/Users/kevch/AndroidStudioProjects/sunMeter/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.1287037037037037" />
         <entry key="..\:/Users/kevch/AndroidStudioProjects/sunMeter/app/src/main/res/drawable/ic_baseline_person_add_24.xml" value="0.1675925925925926" />

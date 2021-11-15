@@ -26,7 +26,9 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private TextView progressText;
-    int i = 0;
+    int i = 100;
+
+
 
 
 
@@ -37,26 +39,36 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         progressBar = findViewById(R.id.progress_bar);
         progressText = findViewById(R.id.progres_text);
+        FloatingActionButton countdown = findViewById(R.id.countdown_btn);
 
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+        countdown.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                if(i <= 100){
-                    //android.os.SystemClock.sleep(5000);
-                    progressText.setText(""+i);
-                    progressBar.setProgress(i);
-                    i++;
-                    handler.postDelayed(this,200);
+            public void onClick(View view) {
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(i >= 0){
+                            //android.os.SystemClock.sleep(5000);
+                            progressText.setText(""+i+"sec");
+                            progressBar.setProgress(i);
+                            i--;
+                            handler.postDelayed(this,200);
 
 
-                }else{
-                    handler.removeCallbacks(this);
+                        }else{
+                            handler.removeCallbacks(this);
 
-                }
+                        }
+
+                    }
+                },200);
 
             }
-        },200);
+        });
+
+
+
 
        Button button = findViewById(R.id.recycle_btn);
        button.setOnClickListener(new View.OnClickListener() {

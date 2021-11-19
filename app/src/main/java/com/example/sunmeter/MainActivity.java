@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private TextView progressText;
+    ImageButton refresh;
     int i = 100;
 
 
@@ -39,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         progressBar = findViewById(R.id.progress_bar);
         progressText = findViewById(R.id.progres_text);
+
+
+
         FloatingActionButton countdown = findViewById(R.id.countdown_btn);
 
         countdown.setOnClickListener(new View.OnClickListener() {
@@ -53,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                             progressText.setText(""+i+"sec");
                             progressBar.setProgress(i);
                             i--;
-                            handler.postDelayed(this,200);
+                            handler.postDelayed(this,1000);
 
 
                         }else{
@@ -62,13 +67,18 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                     }
-                },200);
+                },1000);
 
             }
         });
 
+        refresh = findViewById(R.id.refresh_btn);
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-
+            }
+        });
 
        Button button = findViewById(R.id.recycle_btn);
        button.setOnClickListener(new View.OnClickListener() {

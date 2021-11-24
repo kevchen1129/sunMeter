@@ -14,7 +14,7 @@ public class CalculateSunTime {
 
 	public static void main(String[] args) {
 		try {
-			weatherData(43.071974,-89.387191);
+			System.out.println(weatherData(43.071974,-89.387191));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -22,7 +22,7 @@ public class CalculateSunTime {
 
 	}
 
-	public static double weatherData(double lat, double lon) throws IOException, MalformedURLException {
+	public static int weatherData(double lat, double lon) throws IOException, MalformedURLException {
 
 		String locationUrl = "http://dataservice.accuweather.com/locations/v1/cities/"
 				+ "geoposition/search?apikey=qAV3nAnWDhGyKRWoiDcbgsg2P2EeYxed&q=" + lat + "," + lon;
@@ -60,7 +60,7 @@ public class CalculateSunTime {
 		
 		locationKey = content.substring(index, index+6);
 		
-		System.out.println("Location Key: " + locationKey);
+//		System.out.println("Location Key: " + locationKey);
 		
 		// need to print cloud cover, time of day, sunset/sunrise"
 		
@@ -79,7 +79,7 @@ public class CalculateSunTime {
 		
 		content = null;
 		
-		System.out.println(status);
+//		System.out.println(status);
 		if (status == 200) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 			String inputLine;
@@ -90,21 +90,52 @@ public class CalculateSunTime {
 			in.close();
 		}
 		
-		System.out.println(content);
+//		System.out.println(content);
 		
 		DateTime dt = new DateTime(content.substring(30,55));
 		
 		
-		System.out.println("Local Date/Time: " + dt);
+//		System.out.println("Local Date/Time: " + dt);
 		
 		String cloudCover = content.substring(content.indexOf("CloudCover")+12,content.indexOf("CloudCover")+14);
 		
-		System.out.println("Cloud Cover: " + cloudCover);
+//		System.out.println("Cloud Cover: " + cloudCover);
 		
 		// next steps are to get sunset/sunrise time, and calculate minutes based on that need to spend outside.
+		// get weather icon
+		
+		int weatherIcon = Integer.parseInt(content.substring(content.indexOf("WeatherIcon")+13,content.indexOf("WeatherIcon")+15));
+		
+		String isDayText = content.substring(content.indexOf("IsDayTime")+12,content.indexOf("IsDayTime")+13);
+		
+		if (isDayText.equals("f")) {
+			return 0;
+		}
+ 
+		
+		
+//		System.out.println(weatherIcon);
 
+		switch (weatherIcon) {
+		case 1: case 2: case 3:
+			return 10;
+		case 4:
+			return 20;
+		case 5: case 6: case 7:
+			return 30;
+		case 8: case 9: case 10: case 11: case 12: case 13:
+			return 40;
+		case 14:
+			return 30;
+		case 15:
+			return 40;
+		case 16: case 17:
+			return 25;
+		case 18: case 19: case 20: case 21: case 22: case 23:
+			return 40;
+		}
 
-		return 0.0;
+		return 0;
 	}
 
 }

@@ -122,8 +122,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    Double res = calculateSunTime.weatherData(43.073929,-89.385239);
-                    Log.i("pppppp",res.toString());
+                    int res = calculateSunTime.weatherData(43.073929,-89.385239);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

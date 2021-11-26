@@ -1,3 +1,5 @@
+package com.example.sunmeter;
+
 import java.io.BufferedReader;
 import java.time.*;
 import java.io.IOException;

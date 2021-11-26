@@ -9,6 +9,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -17,19 +18,34 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private TextView progressText;
     ImageButton refresh;
-    int i = 100;
-
+    private CalculateSunTime calculateSunTime;
+    int i = 10;
+    DatabaseReference firedatabase ;
+    MainAdapter mainAdapter;
+    ArrayList<User>list;
+    private User user;
 
 
 
@@ -41,14 +57,40 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         progressBar = findViewById(R.id.progress_bar);
         progressText = findViewById(R.id.progres_text);
+        list = new ArrayList<>();
+        mainAdapter = new MainAdapter(this,list);
+
+
+        calculateSunTime = new CalculateSunTime();
 
 
 
+        firedatabase = FirebaseDatabase.getInstance().getReference("Users");
+        firedatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    User user = dataSnapshot.getValue(User.class);
+                    list.add(user);
+                }
+                mainAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
         FloatingActionButton countdown = findViewById(R.id.countdown_btn);
 
         countdown.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
+                user = list.get(0);
+
+
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -63,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
                         }else{
                             handler.removeCallbacks(this);
+                            updateData(user);
 
                         }
 
@@ -72,10 +115,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
         refresh = findViewById(R.id.refresh_btn);
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                try {
+                    Double res = calculateSunTime.weatherData(43.073929,-89.385239);
+                    Log.i("pppppp",res.toString());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
             }
         });
@@ -98,6 +149,28 @@ public class MainActivity extends AppCompatActivity {
            }
        });
 
+    }
+    private void updateData(User user){
+        HashMap User = new HashMap();
+         String count = user.age;
+        int temp = Integer.valueOf(count);
+        temp++;
+
+        User.put("age",String.valueOf(temp));
+
+
+
+
+        firedatabase.child(user.firstName).updateChildren(User).addOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(@NonNull Task task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(MainActivity.this,"Success",Toast.LENGTH_SHORT);
+                }else{
+                    Log.i(":22","failed");
+                }
+            }
+        });
     }
 
 }

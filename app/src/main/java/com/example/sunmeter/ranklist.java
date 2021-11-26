@@ -23,6 +23,7 @@ public class ranklist extends AppCompatActivity {
     MainAdapter mainAdapter;
     ArrayList<User>list;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +36,8 @@ public class ranklist extends AppCompatActivity {
         list = new ArrayList<>();
         mainAdapter = new MainAdapter(this,list);
         recyclerView.setAdapter(mainAdapter);
+
+
 
 
         database.addValueEventListener(new ValueEventListener() {

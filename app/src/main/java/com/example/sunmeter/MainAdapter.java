@@ -46,6 +46,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
       //  Log.i("2",user.getLastName());
         holder.setImage(String.valueOf(user.getLastName()));
 
+
+
+
     }
 
     @Override

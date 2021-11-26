@@ -160,11 +160,11 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        firedatabase.child(user.firstName).updateChildren(User).addOnCompleteListener(new OnCompleteListener() {
+        firedatabase.child(user.getUserName()).updateChildren(User).addOnCompleteListener(new OnCompleteListener() {
             @Override
             public void onComplete(@NonNull Task task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(MainActivity.this,"Success",Toast.LENGTH_SHORT);
+                    Toast.makeText(MainActivity.this,"Success",Toast.LENGTH_SHORT).show();
                 }else{
                     Log.i(":22","failed");
                 }

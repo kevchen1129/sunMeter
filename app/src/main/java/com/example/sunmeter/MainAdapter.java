@@ -2,6 +2,7 @@ package com.example.sunmeter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> {
     Context context;
@@ -45,6 +47,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
         holder.setAge(String.valueOf(user.getAge()));
       //  Log.i("2",user.getLastName());
         holder.setImage(String.valueOf(user.getLastName()));
+        Random rnd = new Random();
+
+
 
 
 
@@ -80,6 +85,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
 
 
         }
+
 
 
         }

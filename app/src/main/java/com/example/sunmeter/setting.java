@@ -82,7 +82,7 @@ List<String> key;
         HashMap hashMap = new HashMap();
 
         hashMap.put("firstName",first_name);
-        //hashMap.put("img",img);
+        hashMap.put("img",img);
         Log.i("11111",first_name);
 
        // firedatabase.child(username).child("firstName").setValue(name);

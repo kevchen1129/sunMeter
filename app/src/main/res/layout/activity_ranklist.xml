@@ -8,16 +8,16 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ranklist"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="304dp"
+        android:layout_height="560dp"
         android:layout_marginStart="63dp"
-        android:layout_marginTop="153dp"
         android:layout_marginEnd="63dp"
-        android:layout_marginBottom="13dp"
-        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.83" />
 
     <TextView
         android:id="@+id/rank_title"
@@ -30,19 +30,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="37dp"
-        android:layout_marginBottom="45dp"
-        android:clickable="true"
-        app:backgroundTint="@color/teal_700"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ranklist"
-        app:srcCompat="@drawable/ic_baseline_person_add_24" />
 
     <TextView
         android:id="@+id/rank_image"

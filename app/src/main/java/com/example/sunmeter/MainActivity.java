@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 },1000);
 
+
             }
         });
 
@@ -121,11 +122,13 @@ public class MainActivity extends AppCompatActivity {
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    int res = calculateSunTime.weatherData(43.073929,-89.385239);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                    user = list.get(0);
+                    final Handler handler = new Handler();
+                i =10;
+                progressText.setText(""+i+"sec");
+
+                    //int res = calculateSunTime.weatherData(43.073929,-89.385239);
+
 
             }
         });
@@ -164,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(MainActivity.this,"Success",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this,"You absorb your everyday sunlight!",Toast.LENGTH_SHORT).show();
                 }else{
                     Log.i(":22","failed");
                 }

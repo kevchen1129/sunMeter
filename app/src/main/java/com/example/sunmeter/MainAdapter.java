@@ -47,9 +47,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
         User  user = rankList.get(position);
         holder.setFirstName(String.valueOf(user.getFirstName()));
         holder.setAge(String.valueOf(user.getAge()));
-      //  Log.i("2",user.getLastName());
+
         holder.setImage(String.valueOf(user.getLastName()));
         Random rnd = new Random();
+
 
 
 

@@ -1,4 +1,8 @@
+
+
 package com.example.sunmeter;
+
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.time.*;
@@ -26,6 +30,8 @@ public class CalculateSunTime {
 
 	public static int weatherData(double lat, double lon) throws IOException, MalformedURLException {
 
+		Log.i("test","inside weatherFata");
+
 		String locationUrl = "http://dataservice.accuweather.com/locations/v1/cities/"
 				+ "geoposition/search?apikey=qAV3nAnWDhGyKRWoiDcbgsg2P2EeYxed&q=" + lat + "," + lon;
 
@@ -33,14 +39,16 @@ public class CalculateSunTime {
 
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
+
 		con.setRequestMethod("GET");
 
 		int status = con.getResponseCode();
 
+
 		String locationKey;
-		
+
 		StringBuffer content = null;
-		
+
 //		System.out.println(status);
 		if (status == 200) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -51,23 +59,23 @@ public class CalculateSunTime {
 			}
 			in.close();
 		}
-		
+		Log.i("test","deep weatherFata");
 //		System.out.println(content);
-		
+
 		// get index of K to find the index of the key. Add 6 to it. Then get the substring from that character to that plus 6."
-		
+
 		int index = content.indexOf("K");
-		
+
 		index = index + 6;
-		
+
 		locationKey = content.substring(index, index+6);
-		
+
 //		System.out.println("Location Key: " + locationKey);
-		
+
 		// need to print cloud cover, time of day, sunset/sunrise"
-		
+
 		// FIND WEATHER DATA
-		
+
 		String weatherUrl = "http://dataservice.accuweather.com/currentconditions/v1/"
 				+ locationKey + "?apikey=qAV3nAnWDhGyKRWoiDcbgsg2P2EeYxed&details=true";
 
@@ -78,9 +86,9 @@ public class CalculateSunTime {
 		con.setRequestMethod("GET");
 
 		status = con.getResponseCode();
-		
+
 		content = null;
-		
+
 //		System.out.println(status);
 		if (status == 200) {
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -91,53 +99,53 @@ public class CalculateSunTime {
 			}
 			in.close();
 		}
-		
+
 //		System.out.println(content);
-		
+
 		DateTime dt = new DateTime(content.substring(30,55));
-		
-		
+
+
 //		System.out.println("Local Date/Time: " + dt);
-		
+
 		String cloudCover = content.substring(content.indexOf("CloudCover")+12,content.indexOf("CloudCover")+14);
-		
+
 //		System.out.println("Cloud Cover: " + cloudCover);
-		
+
 		// next steps are to get sunset/sunrise time, and calculate minutes based on that need to spend outside.
 		// get weather icon
-		
+
 		int weatherIcon = Integer.parseInt(content.substring(content.indexOf("WeatherIcon")+13,content.indexOf("WeatherIcon")+15));
-		
+
 		String isDayText = content.substring(content.indexOf("IsDayTime")+12,content.indexOf("IsDayTime")+13);
-		
+
 		if (isDayText.equals("f")) {
-			return 0;
+			return 100;
 		}
- 
-		
-		
+
+
+
 //		System.out.println(weatherIcon);
 
 		switch (weatherIcon) {
-		case 1: case 2: case 3:
-			return 10;
-		case 4:
-			return 20;
-		case 5: case 6: case 7:
-			return 30;
-		case 8: case 9: case 10: case 11: case 12: case 13:
-			return 40;
-		case 14:
-			return 30;
-		case 15:
-			return 40;
-		case 16: case 17:
-			return 25;
-		case 18: case 19: case 20: case 21: case 22: case 23:
-			return 40;
+			case 1: case 2: case 3:
+				return 10;
+			case 4:
+				return 20;
+			case 5: case 6: case 7:
+				return 30;
+			case 8: case 9: case 10: case 11: case 12: case 13:
+				return 40;
+			case 14:
+				return 30;
+			case 15:
+				return 40;
+			case 16: case 17:
+				return 25;
+			case 18: case 19: case 20: case 21: case 22: case 23:
+				return 40;
 		}
 
-		return 0;
+		return 100;
 	}
 
 }

@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     MainAdapter mainAdapter;
     ArrayList<User>list;
     private User user;
+    boolean getData = true;
 
 
 
@@ -105,7 +106,10 @@ public class MainActivity extends AppCompatActivity {
 
                         }else{
                             handler.removeCallbacks(this);
-                            updateData(user);
+                            if(getData) {
+                                updateData(user);
+                                getData = false;
+                            }
 
                         }
 
@@ -125,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
                     user = list.get(0);
                     final Handler handler = new Handler();
                 i =10;
+                getData = true;
                 progressText.setText(""+i+"sec");
 
                     //int res = calculateSunTime.weatherData(43.073929,-89.385239);
@@ -155,8 +160,10 @@ public class MainActivity extends AppCompatActivity {
     private void updateData(User user){
         HashMap User = new HashMap();
          String count = user.age;
+
         int temp = Integer.valueOf(count);
         temp++;
+        user.age = String.valueOf(temp);
 
         User.put("age",String.valueOf(temp));
 
@@ -167,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(MainActivity.this,"You absorb your everyday sunlight!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this,"You absorb your daily sunlight!",Toast.LENGTH_SHORT).show();
                 }else{
                     Log.i(":22","failed");
                 }

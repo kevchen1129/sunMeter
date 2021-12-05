@@ -114,8 +114,12 @@
                 android:layout_weight="1"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
+                android:trackTint="@color/Orange"
+                android:thumbTint="@color/white"
+                android:checked="true"
 
-              />
+
+                />
         </LinearLayout>
         <TextView
             android:layout_height="wrap_content"
@@ -147,6 +151,11 @@
                 android:layout_weight="1"
                 android:layout_marginLeft="28dp"
                 android:layout_marginTop="20dp"
+                android:trackTint="@color/Orange"
+                android:checked="true"
+
+                android:thumbTint="@color/white"
+
 
                 />
         </LinearLayout>

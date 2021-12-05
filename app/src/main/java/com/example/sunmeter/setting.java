@@ -35,7 +35,7 @@ List<String> key;
         setContentView(R.layout.activity_setting);
         Button update = findViewById(R.id.update_btn);
         EditText firstName = findViewById(R.id.firstName_update);
-        EditText image = findViewById(R.id.img_update);
+       // EditText image = findViewById(R.id.img_update);
         list = new ArrayList<>();
         mainAdapter = new MainAdapter(this,list);
         key = new ArrayList<String>();
@@ -68,21 +68,21 @@ List<String> key;
             @Override
             public void onClick(View view) {
                 String first_name = firstName.getText().toString();
-                String img = image.getText().toString();
+              //  String img = image.getText().toString();
                 user = list.get(0);
 
                // Log.i("11111",userName);
                 Log.i("222","222");
-                updateData(user,first_name,img);
+                updateData(user,first_name);
             }
         });
     }
 
-    private void updateData(User user, String first_name, String img) {
+    private void updateData(User user, String first_name) {
         HashMap hashMap = new HashMap();
 
         hashMap.put("firstName",first_name);
-        hashMap.put("img",img);
+        //hashMap.put("img",img);
         Log.i("11111",first_name);
 
        // firedatabase.child(username).child("firstName").setValue(name);

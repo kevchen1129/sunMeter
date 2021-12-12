@@ -2,6 +2,7 @@
 
 package com.example.sunmeter;
 
+import android.os.AsyncTask;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -16,21 +17,11 @@ import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 
 
-public class CalculateSunTime {
+public class CalculateSunTime extends AsyncTask<Double, Void, Integer> {
 
-	public static void main(String[] args) {
-		try {
-			System.out.println(weatherData(43.071974,-89.387191));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
-	}
 
 	public static int weatherData(double lat, double lon) throws IOException, MalformedURLException {
-
-		Log.i("test","inside weatherFata");
 
 		String locationUrl = "http://dataservice.accuweather.com/locations/v1/cities/"
 				+ "geoposition/search?apikey=qAV3nAnWDhGyKRWoiDcbgsg2P2EeYxed&q=" + lat + "," + lon;
@@ -100,7 +91,7 @@ public class CalculateSunTime {
 			in.close();
 		}
 
-//		System.out.println(content);
+		System.out.println(content);
 
 		DateTime dt = new DateTime(content.substring(30,55));
 
@@ -114,7 +105,14 @@ public class CalculateSunTime {
 		// next steps are to get sunset/sunrise time, and calculate minutes based on that need to spend outside.
 		// get weather icon
 
-		int weatherIcon = Integer.parseInt(content.substring(content.indexOf("WeatherIcon")+13,content.indexOf("WeatherIcon")+15));
+		String weatherIconString = content.substring(content.indexOf("WeatherIcon")+13,content.indexOf("WeatherIcon")+15);
+
+		// check for comma, get rid of it
+
+		weatherIconString = weatherIconString.replaceAll(",","");
+
+
+		int weatherIcon = Integer.parseInt(weatherIconString);
 
 		String isDayText = content.substring(content.indexOf("IsDayTime")+12,content.indexOf("IsDayTime")+13);
 
@@ -123,6 +121,7 @@ public class CalculateSunTime {
 		}
 
 
+		Log.i("i",weatherIconString);
 
 //		System.out.println(weatherIcon);
 
@@ -148,4 +147,17 @@ public class CalculateSunTime {
 		return 100;
 	}
 
+
+
+
+	@Override
+	protected Integer doInBackground(Double... doubles) {
+		try {
+			return weatherData(doubles[0],doubles[1]);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
 }

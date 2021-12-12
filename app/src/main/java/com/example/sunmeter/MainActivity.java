@@ -9,6 +9,8 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.StrictMode;
+import android.os.StrictMode.ThreadPolicy;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,6 +32,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -64,7 +67,10 @@ public class MainActivity extends AppCompatActivity {
 
         calculateSunTime = new CalculateSunTime();
 
-
+        if(BuildConfig.DEBUG) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
 
         firedatabase = FirebaseDatabase.getInstance().getReference("Users");
         firedatabase.addValueEventListener(new ValueEventListener() {
@@ -132,8 +138,13 @@ public class MainActivity extends AppCompatActivity {
                 getData = true;
                 progressText.setText(""+i+"sec");
 
-                    //int res = calculateSunTime.weatherData(43.073929,-89.385239);
+                try {
+                    i = calculateSunTime.weatherData(43.073929,-89.385239);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
+                Log.i("i value","" + i);
 
             }
         });
